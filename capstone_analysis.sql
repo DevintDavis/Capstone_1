@@ -58,3 +58,45 @@ FROM sample_sales.Online_Sales
 WHERE ShiptoState = 'North Carolina'
 GROUP BY YEAR(Date), MONTH(Date)
 ORDER BY Sales_Year, Sales_Month;
+-- Question 3: Compare North Carolina online
+-- sales revenue with its region
+DESCRIBE sample_sales.Management;
+
+SELECT DISTINCT Region, State
+FROM sample_sales.Management
+WHERE State = 'North Carolina';
+
+SELECT DISTINCT Region, State
+FROM sample_sales.Management
+ORDER BY Region, State;
+
+SELECT
+    ShiptoState AS State,
+    SUM(SalesTotal) AS Total_Revenue
+FROM sample_sales.Online_Sales
+GROUP BY ShiptoState
+ORDER BY Total_Revenue DESC;
+
+-- Question 3: South region online sales
+SELECT
+    SUM(SalesTotal) AS South_Region_Revenue
+FROM sample_sales.Online_Sales
+WHERE ShiptoState IN (
+    'South Carolina',
+    'Florida',
+    'Texas'
+);
+
+-- Question 3: Compare individual states
+SELECT
+    ShiptoState AS State,
+    SUM(SalesTotal) AS Total_Revenue
+FROM sample_sales.Online_Sales
+WHERE ShiptoState IN (
+    'North Carolina',
+    'South Carolina',
+    'Florida',
+    'Texas'
+)
+GROUP BY ShiptoState
+ORDER BY Total_Revenue DESC;
