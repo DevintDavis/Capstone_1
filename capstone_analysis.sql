@@ -77,11 +77,12 @@ FROM sample_sales.Online_Sales
 GROUP BY ShiptoState
 ORDER BY Total_Revenue DESC;
 
--- Question 3: South region online sales
+-- Question 3: Total South Region Online Revenue
 SELECT
     SUM(SalesTotal) AS South_Region_Revenue
 FROM sample_sales.Online_Sales
 WHERE ShiptoState IN (
+    'North Carolina',
     'South Carolina',
     'Florida',
     'Texas'
@@ -100,3 +101,132 @@ WHERE ShiptoState IN (
 )
 GROUP BY ShiptoState
 ORDER BY Total_Revenue DESC;
+
+
+-- Verify Question 3: Regional sales comparison
+SELECT
+    ShiptoState AS State,
+    SUM(SalesTotal) AS Total_Revenue
+FROM sample_sales.Online_Sales
+WHERE ShiptoState IN (
+    'North Carolina',
+    'South Carolina',
+    'Florida',
+    'Texas'
+)
+GROUP BY ShiptoState
+ORDER BY Total_Revenue DESC;
+
+DESCRIBE sample_sales.Online_Sales;
+DESCRIBE sample_sales.Products;
+
+-- Question 4: Explore online sales and product categories
+SELECT
+    o.Date,
+    o.ProdNum,
+    o.SalesTotal,
+    p.CategoryId
+FROM sample_sales.Online_Sales AS o
+JOIN sample_sales.Products AS p
+    ON o.ProdNum = p.ProdNum
+WHERE o.ShiptoState = 'North Carolina'
+LIMIT 10;
+DESCRIBE sample_sales.Inventory_Categories;
+
+-- Question 4: North Carolina online sales by category
+SELECT
+    c.Category,
+    COUNT(*) AS Transaction_Count,
+    SUM(o.SalesTotal) AS Total_Revenue,
+    AVG(o.SalesTotal) AS Average_Transaction
+FROM sample_sales.Online_Sales AS o
+JOIN sample_sales.Products AS p
+    ON o.ProdNum = p.ProdNum
+JOIN sample_sales.Inventory_Categories AS c
+    ON p.CategoryId = c.CategoryId
+WHERE o.ShiptoState = 'North Carolina'
+GROUP BY c.Category
+ORDER BY Total_Revenue DESC;
+
+
+
+-- Question 4: Monthly online sales by product category
+SELECT
+    YEAR(o.Date) AS Sales_Year,
+    MONTH(o.Date) AS Sales_Month,
+    c.Category,
+    SUM(o.SalesTotal) AS Total_Revenue
+FROM sample_sales.Online_Sales AS o
+JOIN sample_sales.Products AS p
+    ON o.ProdNum = p.ProdNum
+JOIN sample_sales.Inventory_Categories AS c
+    ON p.CategoryId = c.CategoryId
+WHERE o.ShiptoState = 'North Carolina'
+GROUP BY
+    YEAR(o.Date),
+    MONTH(o.Date),
+    c.Category
+ORDER BY
+    Sales_Year,
+    Sales_Month,
+    Total_Revenue DESC;
+
+
+SELECT
+    COUNT(*) AS Sales_Rows,
+    SUM(SalesTotal) AS Total_Revenue
+FROM sample_sales.Online_Sales
+WHERE ShiptoState = 'North Carolina';
+
+
+SELECT
+    COUNT(*) AS Joined_Rows,
+    SUM(o.SalesTotal) AS Joined_Revenue
+FROM sample_sales.Online_Sales AS o
+JOIN sample_sales.Products AS p
+    ON o.ProdNum = p.ProdNum
+JOIN sample_sales.Inventory_Categories AS c
+    ON p.CategoryId = c.CategoryId
+WHERE o.ShiptoState = 'North Carolina';
+
+
+-- Question 4: Monthly category performance
+-- North Carolina online sales
+
+SELECT
+    YEAR(o.Date) AS Sales_Year,
+    MONTH(o.Date) AS Sales_Month,
+    c.Category,
+    COUNT(*) AS Transaction_Count,
+    ROUND(AVG(o.SalesTotal), 2) AS Average_Transaction,
+    ROUND(SUM(o.SalesTotal), 2) AS Total_Revenue
+FROM sample_sales.Online_Sales AS o
+JOIN sample_sales.Products AS p
+    ON o.ProdNum = p.ProdNum
+JOIN sample_sales.Inventory_Categories AS c
+    ON p.CategoryId = c.CategoryId
+WHERE o.ShiptoState = 'North Carolina'
+GROUP BY
+    YEAR(o.Date),
+    MONTH(o.Date),
+    c.Category
+ORDER BY
+    Sales_Year,
+    Sales_Month,
+    Total_Revenue DESC;
+
+ 
+-- Verify North Carolina category totals
+SELECT
+    c.Category,
+    COUNT(*) AS Sales_Rows,
+    ROUND(SUM(o.SalesTotal), 2) AS Total_Revenue
+FROM sample_sales.Online_Sales AS o
+JOIN sample_sales.Products AS p
+    ON o.ProdNum = p.ProdNum
+JOIN sample_sales.Inventory_Categories AS c
+    ON p.CategoryId = c.CategoryId
+WHERE o.ShiptoState = 'North Carolina'
+GROUP BY c.Category
+ORDER BY Total_Revenue DESC;
+   
