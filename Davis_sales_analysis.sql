@@ -253,3 +253,84 @@ JOIN sample_sales.Inventory_Categories AS c
     ON p.CategoryId = c.CategoryId
 WHERE o.ShiptoState = 'North Carolina';
  
+
+-- Question 4: Monthly transaction count and average
+-- transaction amount by category for North Carolina
+
+SELECT
+    YEAR(o.Date) AS Sales_Year,
+    MONTH(o.Date) AS Sales_Month,
+    c.Category,
+    COUNT(*) AS Transaction_Count,
+    ROUND(AVG(o.SalesTotal), 2) AS Average_Transaction,
+    ROUND(SUM(o.SalesTotal), 2) AS Total_Revenue
+FROM sample_sales.Online_Sales AS o
+JOIN sample_sales.Products AS p
+    ON o.ProdNum = p.ProdNum
+JOIN sample_sales.Inventory_Categories AS c
+    ON p.CategoryId = c.CategoryId
+WHERE o.ShiptoState = 'North Carolina'
+GROUP BY
+    YEAR(o.Date),
+    MONTH(o.Date),
+    c.Category
+ORDER BY
+    Sales_Year,
+    Sales_Month,
+    c.Category;
+
+
+-- Verify monthly category totals
+SELECT
+    COUNT(*) AS Total_Transactions,
+    ROUND(SUM(o.SalesTotal), 2) AS Total_Revenue
+FROM sample_sales.Online_Sales AS o
+JOIN sample_sales.Products AS p
+    ON o.ProdNum = p.ProdNum
+JOIN sample_sales.Inventory_Categories AS c
+    ON p.CategoryId = c.CategoryId
+WHERE o.ShiptoState = 'North Carolina';
+
+
+-- Question 5: South Region Online Sales Rankings
+
+SELECT
+    ShiptoState AS State,
+    COUNT(*) AS Transaction_Count,
+    ROUND(SUM(SalesTotal), 2) AS Total_Revenue
+FROM sample_sales.Online_Sales
+WHERE ShiptoState IN (
+    'North Carolina',
+    'South Carolina',
+    'Florida',
+    'Texas'
+)
+GROUP BY ShiptoState
+ORDER BY Total_Revenue DESC;
+
+
+
+-- Question 6: Business Recommendation
+--
+-- Based on my analysis, I recommend that EmporiUm
+-- focus its sales attention next quarter on
+-- strengthening North Carolina's online sales.
+--
+-- Technology & Accessories generated $254,968.35,
+-- accounting for approximately 73.6% of the
+-- territory's total online revenue.
+--
+-- North Carolina also ranked fourth among the
+-- four South Region states analyzed, with
+-- 386 sales transactions and $346,285.31
+-- in total revenue.
+--
+-- I recommend maintaining support for Technology
+-- & Accessories while testing targeted promotions
+-- and cross-selling opportunities in other
+-- product categories.
+--
+-- The company should monitor transaction counts,
+-- category revenue, and average transaction
+-- values to evaluate whether these strategies
+-- improve sales performance.
