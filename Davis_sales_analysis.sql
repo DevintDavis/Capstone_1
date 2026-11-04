@@ -229,4 +229,27 @@ JOIN sample_sales.Inventory_Categories AS c
 WHERE o.ShiptoState = 'North Carolina'
 GROUP BY c.Category
 ORDER BY Total_Revenue DESC;
-   
+
+ 
+-- Final verification: North Carolina Online Sales
+SELECT
+    COUNT(*) AS Total_Sales_Rows,
+    ROUND(SUM(SalesTotal), 2) AS Total_Revenue,
+    ROUND(AVG(SalesTotal), 2) AS Average_Sale,
+    MIN(Date) AS First_Sale_Date,
+    MAX(Date) AS Last_Sale_Date
+FROM sample_sales.Online_Sales
+WHERE ShiptoState = 'North Carolina';
+  
+ 
+-- Verify category joins preserve all sales
+SELECT
+    COUNT(*) AS Joined_Rows,
+    ROUND(SUM(o.SalesTotal), 2) AS Joined_Revenue
+FROM sample_sales.Online_Sales AS o
+JOIN sample_sales.Products AS p
+    ON o.ProdNum = p.ProdNum
+JOIN sample_sales.Inventory_Categories AS c
+    ON p.CategoryId = c.CategoryId
+WHERE o.ShiptoState = 'North Carolina';
+ 
