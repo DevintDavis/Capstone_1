@@ -1,5 +1,3 @@
-# Capstone_1
-Year Up United Data Analytics Capstone 1
 # Capstone 1: North Carolina Online Sales Analysis
 
 **Year Up United | Data Analytics Training Academy**
@@ -42,16 +40,21 @@ To evaluate these strategies, the company should monitor monthly transaction cou
 
 ## Project Files
 
-- `Davis_sales_analysis.sql` — SQL queries used to analyze and validate sales performance.
-- Excel workbook — PivotTables, PivotCharts, and supporting sales data.
-- `README.md` — Project overview, findings, and recommendations.
-
+- `Davis_sales_analysis.sql` — Final SQL queries used to analyze and validate North Carolina's online sales performance.
+- `Davis_sales_analysis_original.sql` — Original SQL queries documenting the analysis and development process.
+- `Capstone_1_Sales_Analysis.xlsx..xlsx` — Excel workbook containing PivotTables, PivotCharts, and supporting sales data.
+- `README.md` — Project overview, key findings, visualizations, and business recommendations.
 
 ## Capstone Video Demonstration
 
 **10-Minute Project Walkthrough:** [Watch My Capstone Presentation](https://drive.google.com/file/d/1QpRtaDotyNsMjQXkosN9t9YmngRzXNCe/view?usp=sharing)
 
-This recording demonstrates my SQL analysis,
-Excel visualizations, key findings,
-and business recommendations.
+This recording demonstrates my SQL analysis, Excel visualizations, key findings, and final business recommendations.
 
+## Project Reflection
+
+This capstone allowed me to apply my developing SQL and Excel skills to a realistic business scenario.
+
+Through this project, I strengthened my ability to query relational databases, analyze sales performance, create meaningful data visualizations, and communicate findings through data storytelling.
+
+One of my biggest takeaways was learning how to transform raw data into actionable business recommendations that could support informed decision-making.
