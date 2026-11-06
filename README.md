@@ -46,8 +46,12 @@ To evaluate these strategies, the company should monitor monthly transaction cou
 - Excel workbook — PivotTables, PivotCharts, and supporting sales data.
 - `README.md` — Project overview, findings, and recommendations.
 
+
 ## Capstone Video Demonstration
 
-**10-Minute Project Walkthrough:** Recording link to be added after completion.
+**10-Minute Project Walkthrough:** [Watch My Capstone Presentation](https://drive.google.com/file/d/1QpRtaDotyNsMjQXkosN9t9YmngRzXNCe/view?usp=sharing)
 
-The recording will demonstrate the SQL analysis, Excel visualizations, key findings, and final business recommendations.
+This recording demonstrates my SQL analysis,
+Excel visualizations, key findings,
+and business recommendations.
+
